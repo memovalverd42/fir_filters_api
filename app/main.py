@@ -7,6 +7,9 @@ from app.design.fir_filter import FIRFilter
 from app.design.types.fir_filter_types import FilterConf
 
 hp_hamming_conf = FilterConf(
+    filter_type='highpass',
+    filter_window='hamming',
+
     Ap=0.4,
     As=34,
     fp=16,
@@ -14,15 +17,19 @@ hp_hamming_conf = FilterConf(
     F=80,
 )
 
+try:
 
-filter_strategy = HighPassFilterStrategy(hp_hamming_conf)
-window_strategy = HammingWindowStrategy()
+    filter_strategy = HighPassFilterStrategy(hp_hamming_conf)
+    window_strategy = HammingWindowStrategy()
 
-hp_hamming = FIRFilter(
-    filter_conf=hp_hamming_conf,
-    filter_strategy=filter_strategy,
-    window_strategy=window_strategy
-)
+    hp_hamming = FIRFilter(
+        filter_conf=hp_hamming_conf,
+        filter_strategy=filter_strategy,
+        window_strategy=window_strategy
+    )
 
 
-hp_hamming.execute()
+    hp_hamming.execute()
+
+except Exception as e:
+    print(type(e), e)

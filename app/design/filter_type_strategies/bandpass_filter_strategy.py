@@ -5,14 +5,18 @@ import math
 
 from app.design.filter_type_strategies.filter_type_strategy import FilterTypeStrategy
 from app.design.types.fir_filter_types import FilterConf
+from app.design.validators.filter_conf_validator import FilterConfValidator
 
 
-class BandPassFilterStrategy(FilterTypeStrategy):
+class BandPassFilterStrategy(FilterTypeStrategy, FilterConfValidator):
     """
     The BandPass Filter Strategy class implements the Filter Type Strategy interface
     """
 
     def __init__(self, filter_conf: FilterConf, round_value: int = 7):
+
+        FilterConfValidator.__init__(self, filter_conf)
+
         self.round_value = round_value
 
         self.F = filter_conf['F']

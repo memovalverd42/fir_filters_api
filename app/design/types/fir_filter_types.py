@@ -1,13 +1,21 @@
 """
 This file contains the definitions of fir filter types.
 """
-from typing import TypedDict
+from typing import TypedDict, Literal
 
+FilterType = Literal['passband', 'lowpass', 'highpass', 'bandpass']
+FilterWindow = Literal['hamming', 'blackman', 'kaiser']
 
 class FilterConf(TypedDict):
     """
     This class represents the configuration of a filter.
     """
+    filter_type: FilterType
+    """Filter type"""
+
+    filter_window: FilterWindow
+    """Filter window"""
+
     Ap: float
     """Passband ripple in dB"""
 
@@ -15,22 +23,16 @@ class FilterConf(TypedDict):
     """Stopband attenuation in dB"""
 
     fp: float
-    """Passband frequency in Hz"""
+    """Passband frequency in Hz (pole frequency 1)"""
 
     fs: float
-    """Stopband frequency in Hz"""
+    """Stopband frequency in Hz (zero frequency 1)"""
 
     F: float
     """Sampling frequency in Hz"""
 
-    fs1: float | None
-    """Stopband frequency 1 in Hz (optional)"""
-
-    fp1: float | None
-    """Passband frequency 1 in Hz (optional)"""
-
     fs2: float | None
-    """Stopband frequency 2 in Hz (optional)"""
+    """Stopband frequency 2 in Hz (optional - pole frequency 2)"""
 
     fp2: float | None
-    """Passband frequency 2 in Hz (optional)"""
+    """Passband frequency 2 in Hz (optional - zero frequency 2)"""

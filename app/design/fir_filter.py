@@ -2,6 +2,8 @@
 This file contains the implementation of the filter class
 """
 import math
+from typing import Dict
+
 import numpy as np
 from scipy.signal import freqz
 import matplotlib.pyplot as plt
@@ -10,6 +12,7 @@ from tabulate import tabulate
 from app.design.filter_type_strategies.filter_type_strategy import FilterTypeStrategy
 from app.design.filter_window_strategies.filter_window_strategy import FilterWindowStrategy
 from app.design.types.fir_filter_types import FilterConf
+from app.design.validators.filter_conf_validator import FilterConfValidator
 
 
 def show_coef_table(coefficients: list[float]):
@@ -25,7 +28,7 @@ def show_coef_table(coefficients: list[float]):
     )
 
 
-class FIRFilter:
+class FIRFilter(FilterConfValidator):
     """
     FIR Filter class
     """
@@ -37,12 +40,14 @@ class FIRFilter:
 
     def __init__(
             self,
-            filter_conf: FilterConf,
+            filter_conf: FilterConf | Dict[str, float | int],
             filter_strategy: FilterTypeStrategy,
             window_strategy: FilterWindowStrategy,
             round_value: int = 7
 
     ):
+        super().__init__(filter_conf)
+
         self.filter_conf = filter_conf
         self.round_value = round_value
         self.filter_strategy = filter_strategy
