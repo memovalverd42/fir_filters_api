@@ -10,7 +10,7 @@ class FilterWindowStrategy(ABC):
     """
 
     @abstractmethod
-    def calculate_window_coeficients(self, n: int, n_factor: int) -> list[float]:
+    def calculate_window_coeficients(self, n: int, n_factor: int, *args, **kwargs) -> list[float]:
         """
         This method calculates the window coefficients.
         :param n: Filter Order
